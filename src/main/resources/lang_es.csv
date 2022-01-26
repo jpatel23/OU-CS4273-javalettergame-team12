@@ -1,0 +1,28 @@
+﻿UpperCase,LowerCase,Pronounciation,Phonetics
+A,a (á),a,Vowel
+B,b,be,"Consonant,Stop,Labial"
+C,c,ce,"Consonant,Stop,Alveolar,Velar"
+D,d,de,"Consonant,Stop,Dental"
+E,e (é),e,Vowel
+F,f,efe,"Consonant,Fricative,Labial"
+G,g,ge,"Consonant,Stop,Velar"
+H,h,hache,Consonant
+I,i (í),i,Vowel
+J,j,jota,"Consonant,Stop,Palatal"
+K,k,ka,"Consonant,Stop,Velar"
+L,l,ele,"Consonant,Alveolar,Lateral"
+M,m,eme,"Consonant,Nasal,Labial"
+N,n,ene,"Consonant,Nasal,Alveolar"
+Ñ,ñ,eñe,"Consonant,Palatal,Nasal"
+O,o (ó),o,Vowel
+P,p,pe,"Consonant,Stop,Labial"
+Q,q,cu,Consonant
+R,r,ere,"Consonant,Alveolar,Flap,Trill"
+S,s,ese,"Consonant,Alveolar,Continuant"
+T,t,te,"Consonant,Dental,Stop"
+U,u (ú),u,Vowel
+V,v,uve,"Consonant,Fricative,Labial"
+W,w,uve doble / doble u,"Consonant,Velar,Approximant"
+X,x,equis,"Consonant,Velar,Continuant"
+Y,y,"ye, i griega","Consonant,Vowel"
+Z,z,zeta,"Consonant,Fricative,Alveolar"
