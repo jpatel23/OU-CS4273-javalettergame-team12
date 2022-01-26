@@ -22,6 +22,7 @@ import freemarker.template.TemplateExceptionHandler;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -33,14 +34,37 @@ import com.opencsv.CSVReader;
 
 public class App {
 
+
+
+
+  public static String myParser(String fileName) throws IOException{
+
+    String folder = "src/main/resources/";
+    String filePath = folder.concat(fileName);
+    System.out.println(filePath);
+    
+
+    FileReader filereader = new FileReader(filePath);
+    CSVReader csvReader = new CSVReader(filereader);
+
+    String res = "";
+
+    for(String[] s : csvReader.readAll())
+    {
+      res = res.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+    }
+
+    return res;
+
+  }
+
   public static void main(String[] args) throws IOException {
     // Create an instance of HttpServer bound to port defined by the
     // PORT environment variable when present, otherwise on 8080.
     int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-    FileReader filereader = new FileReader("src/main/resources/lang_en.csv");
-    CSVReader csvReader = new CSVReader(filereader);
+
 
     Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
     cfg.setDirectoryForTemplateLoading(new File("src/main/resources/"));
@@ -60,15 +84,18 @@ public class App {
       }
     });
 
-    server.createContext("/test", (HttpExchange t) -> {
-      String res = "";
+    server.createContext("/en", (HttpExchange t) -> {
 
-      for(String[] s : csvReader.readAll())
-      {
-        res = res.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+      byte[] response = myParser("lang_en.csv").getBytes();
+      t.sendResponseHeaders(200, response.length);
+      try (OutputStream os = t.getResponseBody()) {
+        os.write(response);
       }
+    });
 
-      byte[] response = res.getBytes();
+    server.createContext("/es", (HttpExchange t) -> {
+
+      byte[] response = myParser("lang_es.csv").getBytes();
       t.sendResponseHeaders(200, response.length);
       try (OutputStream os = t.getResponseBody()) {
         os.write(response);
@@ -86,4 +113,7 @@ public class App {
 
     server.start();
   }
+
+
+
 }
