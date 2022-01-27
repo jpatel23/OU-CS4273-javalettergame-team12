@@ -34,9 +34,6 @@ import com.opencsv.CSVReader;
 
 public class App {
 
-
-
-
   public static String myParser(String fileName) throws IOException{
 
     String folder = "src/main/resources/";
