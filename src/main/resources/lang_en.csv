@@ -1,0 +1,27 @@
+﻿UpperCase,LowerCase,Pronunciation,Phonetics
+A,a,[eɪ],Vowel
+B,b,[biː],"Consonant,Stop,Dental"
+C,c,[siː],"Consonant,Fricative,Stop,Alveolar,Velar"
+D,d,[diː],"Consonant,Stop,Alveolar"
+E,e,[iː],Vowel
+F,f,[ɛf],"Consonant,Fricative,Labial"
+G,g,[dʒiː],"Consonant,Stop,Velar"
+H,h,[eɪtʃ],"Consonant,Fricative,Glottal"
+I,I,[aɪ],Vowel
+J,j,[dʒeɪ],"Consonant,Approximant,Palatal"
+K,k,[keɪ],"Consonant,Stop,Velar"
+L,l,[ɛl],"Consonant,Approximant,Alveolar"
+M,m,[ɛm],"Consonant,Nasal,Labial"
+N,n,[ɛn],"Consonant,Nasal,Alveolar"
+O,o,[oʊ],Vowel
+P,p,[piː],"Consonant,Stop,Labial"
+Q,q,[kjuː],Consonant
+R,r,[ɑr],"Consonant,Approximant,Post-Alveolar"
+S,s,[ɛs],"Consonant,Fricative,Alveolar"
+T,t,[tiː],"Consonant,Stop,Alveolar"
+U,u,[juː],Vowel
+V,v,[viː],"Consonant,Fricative,Labial"
+W,w,[ˈdʌbəl juː],"Consonant,Approximant,Velar"
+X,x,[ɛks],Consonant
+Y,y,[waɪ],"Consonant,Vowel"
+Z,z,[ziː],"Consonant,Fricative,Alveolar"

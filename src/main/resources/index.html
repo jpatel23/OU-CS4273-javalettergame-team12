@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <title>Letters</title>
+    <script>
+        function testIndex()
+        {
+            let input = document.forms["testInput"]["input"].value;
+            alert((parseInt(input) - 1) == "{{ index }}" ? "Correct" : "Incorrect")
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <h2>Letter Game</h2>
+
+    {% if language %}
+    <form method="POST">
+        <label for="lang">Select which language you would like to practice:</label>
+        <select id="lang" name="lang">
+            {% if language == 1 %}
+            <option value="1" selected>ENGLISH</option>
+            {% else %}
+            <option value="1">ENGLISH</option>
+            {% endif %}
+            {% if language == 2 %}
+            <option value="2" selected>SPANISH</option>
+            {% else %}
+            <option value="2">SPANISH</option>
+            {% endif %}
+            {% if language == 3 %}
+            <option value="3" selected>IJAW</option>
+            {% else %}
+            <option value="3">IJAW</option>
+            {% endif %}
+            {% if language == 4 %}
+            <option value="4" selected>IGBO</option>
+            {% else %}
+            <option value="4">IGBO</option>
+            {% endif %}
+            {% if language == 5 %}
+            <option value="5" selected>YORUBA</option>
+            {% else %}
+            <option value="5">YORUBA</option>
+            {% endif %}
+        </select>
+        <input type="submit">
+    </form>
+
+    <h4>Letter</h4>
+    <h4><b>{{ letter }}</b></h4>
+
+    <h4> Where does this letter fall in its alphabet? </h4>
+    <form name="testInput" onsubmit="return testIndex()">
+        <label for="input">Index:</label>
+        <input type="number" id="input" name="input">
+        <input type="submit">
+    </form>
+
+    {% else %}
+    <form method="POST">
+        <label for="lang">Select which language you would like to practice:</label>
+        <select id="lang" name="lang">
+            <option value="1">ENGLISH</option>
+            <option value="2">SPANISH</option>
+            <option value="3">IJAW</option>
+            <option value="4">IGBO</option>
+            <option value="5">YORUBA</option>
+        </select>
+        <input type="submit">
+    </form>
+    {% endif %}
+</body>
+
+</html>
