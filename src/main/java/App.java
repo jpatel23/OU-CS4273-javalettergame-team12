@@ -27,7 +27,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,32 +34,28 @@ import com.opencsv.CSVReader;
 
 public class App {
 
-  public static void toCSV(CSVReader reader, HttpServer server, String context)
-  {
-    server.createContext(context, (HttpExchange r) -> {
-      String fileContent = "";
-      for(String [] s : reader.readAll())
-      {
-        fileContent = fileContent.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
-      }
-      byte[] fileBytes = fileContent.getBytes();
-      r.sendResponseHeaders(200, fileBytes.length);
-      try(OutputStream ostream = r.getResponseBody())
-      {
-        ostream.write(fileBytes);
-      } 
-    });
-  }
 
-  public static byte[] fileReader(CSVReader reader) throws IOException
-  {
-      String fileContent = "";
-      for(String [] s : reader.readAll())
-      {
-        fileContent = fileContent.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
-      }
-      byte[] fileBytes = fileContent.getBytes();
-      return fileBytes;
+
+
+  public static String myParser(String fileName) throws IOException{
+
+    String folder = "src/main/resources/";
+    String filePath = folder.concat(fileName);
+    System.out.println(filePath);
+    
+
+    FileReader filereader = new FileReader(filePath);
+    CSVReader csvReader = new CSVReader(filereader);
+
+    String res = "";
+
+    for(String[] s : csvReader.readAll())
+    {
+      res = res.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+    }
+
+    return res;
+
   }
 
   public static void main(String[] args) throws IOException {
@@ -69,8 +64,7 @@ public class App {
     int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "8080"));
     HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-    FileReader filereader = new FileReader("src/main/resources/lang_en.csv");
-    CSVReader csvReader = new CSVReader(filereader);
+
 
     Configuration cfg = new Configuration(Configuration.VERSION_2_3_29);
     cfg.setDirectoryForTemplateLoading(new File("src/main/resources/"));
@@ -90,15 +84,18 @@ public class App {
       }
     });
 
-    /*server.createContext("/test", (HttpExchange t) -> {
-      String res = "";
+    server.createContext("/en", (HttpExchange t) -> {
 
-      for(String[] s : csvReader.readAll())
-      {
-        res = res.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+      byte[] response = myParser("lang_en.csv").getBytes();
+      t.sendResponseHeaders(200, response.length);
+      try (OutputStream os = t.getResponseBody()) {
+        os.write(response);
       }
+    });
 
-      byte[] response = res.getBytes();
+    server.createContext("/es", (HttpExchange t) -> {
+
+      byte[] response = myParser("lang_es.csv").getBytes();
       t.sendResponseHeaders(200, response.length);
       try (OutputStream os = t.getResponseBody()) {
         os.write(response);
@@ -112,19 +109,11 @@ public class App {
       try (OutputStream os = t.getResponseBody()) {
         os.write(response);
       }
-    });*/
-
-    toCSV(csvReader, server, "/english");
-    byte[] english = fileReader(csvReader);
-
-    FileReader sreader = new FileReader("src/main/resources/lang_es.csv");
-    CSVReader csvspanReader = new CSVReader(sreader);
-    toCSV(csvspanReader, server, "/spanish");
-    byte[] spanish = fileReader(csvspanReader);
-
-    System.out.println(Arrays.toString(english));
-    System.out.println(Arrays.toString(spanish));
+    });
 
     server.start();
   }
+
+
+
 }
