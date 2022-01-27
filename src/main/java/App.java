@@ -22,16 +22,46 @@ import freemarker.template.TemplateExceptionHandler;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.opencsv.CSVReader;
 
 public class App {
+
+  public static void toCSV(CSVReader reader, HttpServer server, String context)
+  {
+    server.createContext(context, (HttpExchange r) -> {
+      String fileContent = "";
+      for(String [] s : reader.readAll())
+      {
+        fileContent = fileContent.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+      }
+      byte[] fileBytes = fileContent.getBytes();
+      r.sendResponseHeaders(200, fileBytes.length);
+      try(OutputStream ostream = r.getResponseBody())
+      {
+        ostream.write(fileBytes);
+      } 
+    });
+  }
+
+  public static byte[] fileReader(CSVReader reader) throws IOException
+  {
+      String fileContent = "";
+      for(String [] s : reader.readAll())
+      {
+        fileContent = fileContent.concat(Stream.of(s).collect(Collectors.joining(", "))+"\n");
+      }
+      byte[] fileBytes = fileContent.getBytes();
+      return fileBytes;
+  }
 
   public static void main(String[] args) throws IOException {
     // Create an instance of HttpServer bound to port defined by the
@@ -60,7 +90,7 @@ public class App {
       }
     });
 
-    server.createContext("/test", (HttpExchange t) -> {
+    /*server.createContext("/test", (HttpExchange t) -> {
       String res = "";
 
       for(String[] s : csvReader.readAll())
@@ -82,7 +112,18 @@ public class App {
       try (OutputStream os = t.getResponseBody()) {
         os.write(response);
       }
-    });
+    });*/
+
+    toCSV(csvReader, server, "/english");
+    byte[] english = fileReader(csvReader);
+
+    FileReader sreader = new FileReader("src/main/resources/lang_es.csv");
+    CSVReader csvspanReader = new CSVReader(sreader);
+    toCSV(csvspanReader, server, "/spanish");
+    byte[] spanish = fileReader(csvspanReader);
+
+    System.out.println(Arrays.toString(english));
+    System.out.println(Arrays.toString(spanish));
 
     server.start();
   }
