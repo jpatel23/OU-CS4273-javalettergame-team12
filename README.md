@@ -8,18 +8,18 @@ detailed instructions.
 
 [ae-docs]: https://cloud.google.com/appengine/docs/standard/java11/quickstart
 
-## Setup
-
-See [Prerequisites](../README.md#Prerequisites).
-
 ## Deploying
 
 ```bash
+gcloud auth login
+
+gcloud init
+
 gcloud app deploy
 ```
 
-To view your app, use command:
+To view our app, use command:
 ```
 gcloud app browse
 ```
-Or navigate to `https://<your-project-id>.appspot.com`.
+Or navigate [here](https://letter-game-2.uc.r.appspot.com/).
