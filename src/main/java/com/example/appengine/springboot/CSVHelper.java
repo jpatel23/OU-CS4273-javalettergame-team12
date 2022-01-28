@@ -41,7 +41,7 @@ public class CSVHelper{
     public String getCell(int row, int column)
     {
         try{
-            return null;
+            return data.get(row)[column];
         }
         catch(Exception e)
         {
