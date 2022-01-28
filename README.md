@@ -1,15 +1,20 @@
-# Standalone HTTP Server on Google App Engine Standard with Java 11
+# Spring Boot Application Google App Engine Standard with Java 11
 
-This sample shows how to deploy an application to Google App Engine from source. The `entrypoint` field listed in the [`app.yaml`](src/main/appengine/app.yaml) is not required,
-as GAE will determine the entrypoint by searching the `target` directory for the .jar file with a Main-Class Manifest entry.
+This sample shows how to deploy a [Spring Boot](https://spring.io/projects/spring-boot)
+application to Google App Engine standard.
+
+See the [Quickstart for Java in the App Engine Standard Environment][ae-docs] for more
+detailed instructions.
+
+[ae-docs]: https://cloud.google.com/appengine/docs/standard/java11/quickstart
 
 ## Setup
 
 See [Prerequisites](../README.md#Prerequisites).
 
-## Deploy to App Engine Standard
+## Deploying
 
-```
+```bash
 gcloud app deploy
 ```
 

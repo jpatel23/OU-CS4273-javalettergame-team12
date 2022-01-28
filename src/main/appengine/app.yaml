@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START gae_java11_runtime]
+# [START gae_java11_helloworld_yaml]
 runtime: java11
-# No need for an entrypoint with single fatjar with correct manifest class-path entry.
-# [END gae_java11_runtime]
+# [END gae_java11_helloworld_yaml]
