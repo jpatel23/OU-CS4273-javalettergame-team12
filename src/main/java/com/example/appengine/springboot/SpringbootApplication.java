@@ -25,19 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 import freemarker.core.ParseException;
 import freemarker.template.Configuration;
 import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.Template;
 import freemarker.template.TemplateExceptionHandler;
 import freemarker.template.TemplateNotFoundException;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import java.util.stream.Stream;
 import java.io.File;
-import java.io.FileReader;
-
-import com.opencsv.CSVReader;
 
 @SpringBootApplication
 @RestController
@@ -47,6 +40,7 @@ public class SpringbootApplication {
 
   public static void main(String[] args) throws IOException {
 
+    //TODO Implement letter game
     cfg.setDirectoryForTemplateLoading(new File("src/main/resources/"));
     cfg.setDefaultEncoding("UTF-8");
     cfg.setTemplateExceptionHandler(TemplateExceptionHandler.HTML_DEBUG_HANDLER);
@@ -63,21 +57,5 @@ public class SpringbootApplication {
     
     return "<h1>Hello world!</h1>";
   }
-
-  private static List<String[]> parseCSVFile(String fileName) throws IOException {
-
-    String folder = "src/main/resources/";
-    String filePath = folder.concat(fileName);
-
-    FileReader filereader = new FileReader(filePath);
-    CSVReader csvReader = new CSVReader(filereader);
-
-    List<String[]> result = csvReader.readAll();
-
-    csvReader.close();
-
-    return result;
-  }
-
 }
 // [END gae_java11_helloworld]
