@@ -1,4 +1,4 @@
-# Spring Boot Application Google App Engine Standard with Java 11
+# Spring Boot Application Google App Engine Standard with Java 11 using Github Actions
 
 This sample shows how to deploy a [Spring Boot](https://spring.io/projects/spring-boot)
 application to Google App Engine standard.
